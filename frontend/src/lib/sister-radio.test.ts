@@ -143,6 +143,11 @@ describe('the actual sister-radio host', () => {
 		document.removeEventListener('keydown', keys);
 		mounted.update(radioIntegration({ ...input, position: 31 }));
 		expect(root.querySelector('.art-crt-volume')).toBeNull();
+		root.querySelector<HTMLButtonElement>('.volume-mute-btn')!.click();
+		expect(input.setVolume).toHaveBeenLastCalledWith(0);
+		mounted.update(radioIntegration({ ...input, volume: 0 }));
+		root.querySelector<HTMLButtonElement>('.volume-mute-btn')!.click();
+		expect(input.setVolume).toHaveBeenLastCalledWith(0.5);
 		mounted.update(
 			radioIntegration({ ...input, state: { ...state, current: null, up_next: [], rotation: [] } })
 		);
